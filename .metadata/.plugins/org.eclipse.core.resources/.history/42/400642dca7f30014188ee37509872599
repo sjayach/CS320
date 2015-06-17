@@ -1,0 +1,40 @@
+package examples;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/Addbook")
+public class Addbook extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public void init() throws ServletException {
+		ServletContext form = this.getServletContext();
+		
+		if (form.getAttribute("login") == null) {
+			ArrayList <DataBase> data = new ArrayList <DataBase>();
+			data.add(new DataBase("a", "b"));
+			data.add(new DataBase("c", "d"));
+			form.setAttribute("login", data);
+		}
+		
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+}

@@ -1,0 +1,131 @@
+package cs540.telnet.copy;
+
+import java.net.*;
+import java.io.*;
+
+public class TelnetServer
+{
+	
+	public static void pwd (String command, PrintWriter pw ) {
+		pw.println("PWD : " +System.getProperty("user.dir"));
+		
+	}
+	
+	public static void list_files (PrintWriter pw) {
+		File folder = new File(System.getProperty("user.dir"));
+		File[] listOfFiles = folder.listFiles();
+		//String file_names=" ";
+
+		    for (File files :listOfFiles) {
+		      if (files.isFile()) {
+		       pw.println(files.getName());
+		    	 // file_names = file_names + files.getName()+"\n";
+		      } else if (files.isDirectory()) {
+		    	//file_names = file_names+files.getName() + "/" +"\n";
+		        pw.println(files.getName() + "/");
+		      }
+		    }
+		    //pw.println(file_names);
+	}
+	
+	public static void change_dir(PrintWriter pw, String str) {
+		File dir = new File(str);
+		if (dir.exists() && dir.isDirectory()) {
+			System.out.println("change directory " +str);
+			System.setProperty("user.dir", str);
+		}
+		else 
+			pw.println("Specified directory is not present");
+		
+	}
+	
+	public static void help_usage(PrintWriter pw) {
+		pw.println("Usage:");
+		pw.println(" ");
+		pw.println("pwd : Displays present working directory");
+		pw.println("ls : List all files and directories in the current directory");
+		pw.println("bye: Close the connection and reuse the same port later ");
+		pw.println("quit: Terminate the server connection");
+	}
+	
+    public static void main(java.lang.String[] args) throws UnknownHostException, IOException {
+        //Create object of Socket
+    	
+    	int portNumber = 3578;
+		System.out.println("Creating server socket on port " + portNumber);
+		System.setProperty("java.net.useSystemProxies", "true");
+		ServerSocket serverSocket = new ServerSocket(portNumber);
+		serverSocket.getReuseAddress();
+		
+		Socket socket; 
+		socket =  serverSocket.accept();
+		System.out.println("socket accepted");
+		OutputStream os ;
+		os = socket.getOutputStream();
+		PrintWriter pw;
+		pw = new PrintWriter(os, true);
+		//pw.print(">");
+		//System.out.println("written");
+		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+		while (true) {
+			boolean is_quit = false;
+			
+			//os.flush();
+			//pw.flush();
+			System.out.println("while loop");
+			String str = br.readLine();
+			
+			System.out.println("Just said hello to:" + str);
+			
+			
+			String [] cmd = str.split(" ");
+			switch(cmd[0]) {
+				case "pwd":
+					pwd(str, pw);
+					break;
+				case "ls":
+					list_files(pw);
+					break;
+				case "cd":
+					change_dir(pw, cmd[1]);
+					break;
+				case "bye":
+					pw.close();
+					socket.close();
+					os.close();
+					System.out.println("Server Closed");
+					socket = serverSocket.accept();
+					os = socket.getOutputStream();
+					pw = new PrintWriter(os, true);
+					break;
+				case "quit":
+					is_quit = true;
+					break;
+				case "help":
+					help_usage(pw);
+					break;
+				
+				default:
+					if (str.trim().length() != 0)
+						pw.println(str + " : Command not found. Please use \"help\" to find the available commands");
+					break;
+			}
+			
+			if (is_quit)
+				break;
+			
+			//pw.print(">");
+			//os.flush();
+			//pw.flush();
+			
+		}
+		
+		pw.close();
+		socket.close();
+		os.close();
+		serverSocket.setReuseAddress(true);
+		serverSocket.close();
+
+    }
+}

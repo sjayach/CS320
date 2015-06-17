@@ -1,0 +1,39 @@
+package homework3;
+
+public class AirportBean {
+	String zip;
+	String city;
+	String airport;
+	double latitude;
+	double longitude;
+	
+	public AirportBean(String zip, String city, double lat, double lon) {
+		this.zip = zip;
+		this.city = city;
+		this.latitude = lat;
+		this.longitude = lon;
+	}
+	public AirportBean(String airport, double lat, double lon) {
+		this.airport = airport;
+		this.latitude = lat;
+		this.longitude = lon;
+	}
+	public String getAirport() {
+		return airport;
+	}
+	public double getLatitude() {
+		return latitude;
+	}
+	public double getLongitude() {
+		return longitude;
+	}
+	public String getZip() {
+		return zip;
+	}
+
+	public String getCity() {
+		return city;
+	}
+	
+
+}

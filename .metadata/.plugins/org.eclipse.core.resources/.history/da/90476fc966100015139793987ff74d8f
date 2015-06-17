@@ -1,0 +1,68 @@
+package mediaStore;
+
+import java.sql.Timestamp;
+
+public class MediaBean {
+	int id;
+	String types;
+	String namemedia;
+	Timestamp addDate;
+	boolean isloan;
+	String lentdate;
+	String borrowed;
+	public MediaBean(int id, String type, String namemedia, Timestamp addDate,
+			boolean isloan, String lentdate, String borrowed) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.namemedia = namemedia;
+		this.addDate = addDate;
+		this.isloan = isloan;
+		this.lentdate = lentdate;
+		this.borrowed = borrowed;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getType() {
+		return types;
+	}
+	public void setType(String type) {
+		this.types = type;
+	}
+	public String getNamemedia() {
+		return namemedia;
+	}
+	public void setNamemedia(String namemedia) {
+		this.namemedia = namemedia;
+	}
+	public Timestamp getAddDate() {
+		return addDate;
+	}
+	public void setAddDate(Timestamp addDate) {
+		this.addDate = addDate;
+	}
+	public boolean isIsloan() {
+		return isloan;
+	}
+	public void setIsloan(boolean isloan) {
+		this.isloan = isloan;
+	}
+	public String getLentdate() {
+		return lentdate;
+	}
+	public void setLentdate(String lentdate) {
+		this.lentdate = lentdate;
+	}
+	public String getBorrowed() {
+		return borrowed;
+	}
+	public void setBorrowed(String borrowed) {
+		this.borrowed = borrowed;
+	}
+	
+
+}

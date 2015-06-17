@@ -1,0 +1,90 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+  
+  
+  
+	<form action="AirportDisplay" method=post>
+	Specify the city name:
+	<input type="text" name="city_name">
+	<input type="submit" value="Serch ZIP" name="search_zip">
+	</form>
+	<br />
+	<form action="AirportDisplay" method=post>
+		Specify the Zipcode:
+		<input type="text" name="searchQuery">
+		Specify the distance:
+		<input type="text" name="distance">
+		<input type="submit" value="Serch airport" name="search_airport">
+	</form>	
+	<c:if test="${not empty DisplayZip}">
+		<div class="container">
+			<table class="table table-bordered table-striped" border="1">
+				<tr>
+					<th>City</th>
+					<th>ZipCode </th>
+				</tr>
+				<c:forEach items="${DisplayZip}" var="place" varStatus="stat">
+					<tr>
+						<td>${place.city}</td>
+						<td>${place.zip}</td>
+					</tr>
+					<c:set var="myVar" value="${stat.first ? '' : myVar} &markers=label:${plot.city}%7c${place.latitude},${ place.longitude}" />
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
+	
+	
+	
+	<c:if test="${not empty airports}">
+		<div class="container">
+			<table class="table table-bordered table-striped" border="1">
+				<tr>
+					<th>Airport</th>
+					<th>Latitude</th>
+					<th>Longitude</th>
+				</tr>
+				<c:forEach items="${ airports}" var="plot" varStatus="stat">
+					<tr>
+						<td>${plot.airport}</td>
+						<td>${plot.latitude}</td>
+						<td>${plot.longitude}</td>
+						  <c:set var="myVar" value="${stat.first ? '' : myVar} &markers=label:${plot.airport}%7c${plot.latitude},${ plot.longitude}" />
+						
+					</tr>
+				</c:forEach>
+			</table>
+			
+		</div>
+	</c:if>
+	
+	<c:if test="${not empty cityAirport}">
+		<div class="container">
+			<table class="table table-bordered table-striped" border="1">
+				<tr>
+					<th>Airport</th>
+				</tr>
+				<c:forEach items="${cityAirport}" var="airport" varStatus="stat">
+					<tr>
+						<c:if test="${not empty airport}">
+						<td>${airport}</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</table>
+			
+		</div>
+	</c:if>
+	
+	<img alt="Map" src="https://maps.googleapis.com/maps/api/staticmap?&zoom=9&size=600x300&maptype=roadmap${myVar}">
+</body>
+</html>

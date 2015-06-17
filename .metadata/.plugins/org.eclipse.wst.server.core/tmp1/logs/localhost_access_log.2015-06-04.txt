@@ -1,0 +1,7 @@
+127.0.0.1 - - [04/Jun/2015:14:52:38 -0700] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [04/Jun/2015:14:52:41 -0700] "GET /CS320/databases/IntroToDatabases HTTP/1.1" 200 1613
+0:0:0:0:0:0:0:1 - - [04/Jun/2015:14:55:37 -0700] "GET /CS320/databases/IntroToDatabases?search=john HTTP/1.1" 200 734
+0:0:0:0:0:0:0:1 - - [04/Jun/2015:14:58:26 -0700] "GET /CS320/databases/IntroToDatabases?search=John HTTP/1.1" 200 1024
+127.0.0.1 - - [04/Jun/2015:15:04:02 -0700] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [04/Jun/2015:15:04:06 -0700] "GET /CS320/databases/IntroToDatabases HTTP/1.1" 200 1613
+0:0:0:0:0:0:0:1 - - [04/Jun/2015:15:04:52 -0700] "GET /CS320/sql/IntroToMySQL.jsp HTTP/1.1" 200 711

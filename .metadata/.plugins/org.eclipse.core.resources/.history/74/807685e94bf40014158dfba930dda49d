@@ -1,0 +1,52 @@
+package homework2;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/Homework2/Login")
+public class Login extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+
+	public void init() throws ServletException {
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Login Page</title>");
+		out.println("	<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("	<form class=\"form-horizontal\" action=\"Login\" method=\"post\">");
+		out.println(" Username <input type=\"text\" class=\"form-control\" name=\"username\" placeholder=\"Username\">");
+		out.println(" Password <input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\">");
+		out.println("<div class=\"checkbox\">");
+		out.println("<label><input type=\"checkbox\"  name=\"remember\"> Remember me </label>");
+		out.println("</div>");
+		out.println("		<div class=\"form-group\">");
+		out.println("			<label><input type=\"submit\" class=\"btn btn-success\" value=\"Login\"></label>");
+		out.println("		</div>");
+		out.println("</form>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	}
+
+}

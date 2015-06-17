@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>CDs:</h3><br />
+<table border="1">
+	<tr>
+		<th>Name of the Media</th>
+		<th>Date Added</th>
+		<th>Borrower</th>
+		<th>Date Borrowed</th>
+	</tr>
+	<c:forEach items="medialist" var="media">
+	<c:if test="${media.type == 'CD' }">
+		<tr>
+		
+			<td>${media.namemedia}</td>
+			<td>${media.addDate}</td>
+			<c:choose>
+				<c:when test="${not empty media.borrowed}">
+					<td>${media.borrowed}</td>
+					<td>${media.lentDate }
+				</c:if>
+				<c:otherwise>
+					<td><a href ="LendPage?id=${media.id}">Lend</a></td>
+					<td></td>
+				</c:otherwise>
+			</c:choose>
+		</tr>
+	</c:if>
+	</c:forEach>
+	
+</table>
+
+
+</body>
+</html>

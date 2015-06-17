@@ -1,0 +1,98 @@
+package Homework3;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class LocatorController
+ */
+@WebServlet("/LocatorController")
+public class LocatorController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletContext context=getServletContext();
+    	
+		
+		List<ZipcodeBean> Locator =new ArrayList<ZipcodeBean>();
+		
+		String username = "cs320stu69";
+		String password = "MwExnpNz";
+		String host 	    = "cs3.calstatela.edu";
+		String port   	= "3306";
+		String dbName 	= "cs320stu69";
+
+		String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+	
+		Connection connection = null;
+		try{
+
+			// Dynamically include the MySQL Driver
+			Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+
+			// Instantiate the Driver
+			Driver driver = new org.gjt.mm.mysql.Driver();
+
+			// Connect to the database
+			connection = DriverManager.getConnection(url, username, password);
+			Statement statement = connection.createStatement();
+			String text=request.getParameter("search1");
+			System.out.println(text);
+			String Query = "";
+			
+			if(request.getParameter("search")!=null) {
+				
+				Query="SELECT * FROM Zipcode where city LIKE '%" +text+"%'"; 
+				System.out.println(Query);
+				ResultSet resultset=statement.executeQuery(Query);
+				
+				
+				while(resultset.next())
+				{
+					
+					String zip = resultset.getString("zip");
+					
+					String city = resultset.getString("city");
+				  
+					Locator.add(new ZipcodeBean(Integer.parseInt(zip), city));
+				}
+				
+				request.setAttribute("Searchlist", Locator);
+				context.setAttribute("Searchlist", Locator);
+			}
+
+		
+		connection.close();
+	
+		
+		request.getRequestDispatcher("/WEB-INF/Locator/LocatorControllerView.jsp").forward(request, response);
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	}
+
+
+
+	
+
+

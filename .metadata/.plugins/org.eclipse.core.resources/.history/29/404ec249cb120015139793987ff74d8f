@@ -1,0 +1,29 @@
+package Homework3;
+
+public class AirportBean {
+	
+	String Airport;
+	double Latitude;
+	double Longitude;
+
+	public AirportBean(String Airport,double Latitude,double Longitude) {
+		this.Airport = Airport;
+		this.Latitude = Latitude;
+		this.Longitude = Longitude;
+		
+		
+	}
+
+	public String getAirport() {
+		return Airport;
+	}
+
+	public double getLatitude() {
+		return Latitude;
+	}
+
+	public double getLongitude() {
+		return Longitude;
+	}
+
+}

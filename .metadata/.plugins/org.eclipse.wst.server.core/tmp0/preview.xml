@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<server port="8080">
+  <module name="cs_320" path="C:/Users/Jayakumari/cs320/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/cs_320" type="j2ee"/>
+  <module name="cs" path="C:/Users/Jayakumari/cs320/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/cs" type="j2ee"/>
+  <module context="CS320" name="CS320" path="C:/Users/Jayakumari/cs320/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/CS320" type="j2ee"/>
+</server>

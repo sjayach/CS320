@@ -1,0 +1,266 @@
+package homework2;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Register
+ */
+@WebServlet("/Homework1/Register")
+public class RegisterServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	public void init() throws ServletException {
+		ServletContext context = this.getServletContext();
+		if (context.getAttribute("HomeworkUsers") == null) {
+			ArrayList<CS320User> user = new ArrayList<CS320User>();
+			user.add(new CS320User("John", "Doe", "john@doe.com", "1!"));
+			user.add(new CS320User("Joe", "Boxer", "joe@boxer.com", "2@"));
+			context.setAttribute("HomeworkUsers", user);
+		}
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
+		boolean isNameEmpty = request.getAttribute("isNameEmpty") != null;
+		boolean noLastName = request.getAttribute("noLastName") != null;
+		boolean isNameInvalid = request.getAttribute("isNameInvalid") != null;
+		boolean noEmail = request.getAttribute("noEmail") != null;
+		boolean emailInvalid = request.getAttribute("emailInvalid") != null;
+		boolean isPass1Empty = request.getAttribute("isPass1Empty") != null;
+		boolean isPass2Empty = request.getAttribute("isPass2Empty") != null;
+		boolean isPassMatchError = request.getAttribute("isPassMatchError") != null;
+		boolean isPassFail = request.getAttribute("isPassFail") != null;
+		boolean form_success = true;
+		
+		if (request.getAttribute("formSuccess") != null)
+			form_success = (boolean) request.getAttribute("formSuccess");
+				
+		
+
+		String name = null;
+		String email = null;
+		String pass1 = "";
+		String pass2 = "";
+		
+		if (!isNameEmpty | !isNameInvalid)
+			name = (request.getAttribute("name")) == null ? "" : request.getAttribute("name").toString();
+		
+		if (!emailInvalid || !noEmail)
+			email = request.getAttribute("email") == null ? "" : request.getAttribute("email").toString();
+		
+		if (!isPass1Empty && !isPass2Empty && !isPassFail && !isPassMatchError) {
+			pass1 = request.getAttribute("password1") == null ? "" : request.getAttribute("password1").toString();
+			pass2 = request.getAttribute("password2") == null ? "" : request.getAttribute("password2").toString();
+		}
+		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Register Page</title>");
+		out.println("	<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">");
+		out.println("</head>");
+		out.println("<body>");
+		if(form_success && !name.equals("") && !email.equals("") &&
+				!pass1.equals("") && !pass2.equals("")) {
+			
+ 			// out.println("<h1>Welcome, " +request.getAttribute("firstname").toString() + "!</h1> <a href=\"http://cs3.calstatela.edu:8080/cs320stu47/Homework2/Login\">Login</a>");
+			out.println("<h1>Welcome, " +request.getAttribute("firstname").toString() + "!</h1> <a href=\"http://localhost:8080/CS320/Homework2/Login\">Login</a>");
+ 			ServletContext context = this.getServletContext();
+ 			ArrayList <CS320User> users = (ArrayList<CS320User>) context.getAttribute("HomeworkUsers");
+ 			users.add(new CS320User (request.getAttribute("firstname").toString(), request.getAttribute("lastname").toString(),email, pass1));
+		}
+		else {
+			out.println("<div class=\"container\">");
+			out.println("	<div class=\"page-header\">");
+			out.println("		<h1>Register</h1>");
+			out.println("	</div>");
+	
+		
+			out.println("	<form class=\"form-horizontal\" action=\"Register\" method=\"post\">");
+		
+		
+			out.println("		<div class=\"form-group\">");
+			out.println("			    <label>Name:</label>");
+			out.println("				<input type=\"textbox\" class=\"form-control\" name=\"name\" value=\"" + (isNameEmpty ? "" : name) + "\" placeholder=\"Enter your name\">");
+		
+			if (isNameInvalid) {
+				out.println("				<p class=\"text-danger\">Please enter valid Full Name</p>");
+			}
+			if(isNameEmpty) {
+				out.println("				<p class=\"text-danger\">Name should not be Empty</p>");
+			} else if (noLastName) {
+				out.println("				<p class=\"text-danger\">Name should contain last name</p>");
+			}
+		
+			out.println("		</div>");
+		
+		
+			out.println("		<div class=\"form-group\">");
+			out.println("			    <label>E-mail Address:</label>");
+			out.println("				<input type=\"textbox\" class=\"form-control\" name=\"email\" value=\"" + (emailInvalid ? "" : email) + "\" placeholder=\"Enter your E-mail Address\">");
+			if (noEmail) {
+				out.println("				<p class=\"text-danger\">Email address should not be Empty</p>");
+			} else if(emailInvalid) {
+				out.println("				<p class=\"text-danger\">Email address is invalid</p>");
+			}
+			out.println("		</div>");
+		
+			out.println("		<div class=\"form-group\">");
+			out.println("			    <label>Password:</label>");
+			out.println("				<input type=\"password\" class=\"form-control\" name=\"password1\" value=\"" + ((isPass2Empty || isPass1Empty || isPassFail) ? "" : pass1) + "\" placeholder=\"Enter your password\">");
+			if (isPass1Empty) {
+				out.println("				<p class=\"text-danger\">Password is empty</p>");
+			}
+			if (isPassFail) {
+				out.println("				<p class=\"text-danger\">Password should contain a numeric and a special character</p>");
+			}
+			out.println("		</div>");
+			
+		
+			out.println("		<div class=\"form-group\">");
+			out.println("			    <label>Re-Enter Password:</label>");
+			out.println("				<input type=\"password\" class=\"form-control\" name=\"password2\" value=\"" + ((isPassMatchError || isPassFail) ? "" : pass2) + "\" placeholder=\"Re-enter your password\">");
+		
+			if (isPass2Empty && !isPass1Empty) {
+				out.println("				<p class=\"text-danger\">Re-enter password is empty</p>");
+			}
+			if (isPassMatchError) {
+				out.println("				<p class=\"text-danger\">Password does not match</p>");
+			}
+
+		
+			out.println("		</div>");
+			out.println("		<div class=\"form-group\">");
+			out.println("			<input type=\"submit\" class=\"btn btn-success\" value=\"Register\">");
+			out.println("		</div>");
+		
+		
+			out.println("	</form>");
+		}
+		out.println("</div>");
+		out.println("</body>");
+		out.println("</html>	");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String password1 = request.getParameter("password1");
+		String password2 = request.getParameter("password2");
+		String email_regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		String pass_regex = "(?=.*\\d)(?=.*[\\W]).*$";
+		String firstname="";
+		boolean form_success = true;
+		
+		if (name != null)
+			name = name.trim();
+		
+		if (name != null && name.length() > 0 ) {
+			
+			
+			
+			
+			
+			String[] names = name.split(" ");
+			
+			if(names.length <= 1) {
+				request.setAttribute("noLastName", true);
+				form_success = false;
+			}
+			if (name.matches("^[a-zA-Z\\s]*$")) {
+				request.setAttribute("name", name);
+			
+				for (int i = 0; i < names.length - 1; i++ )
+					firstname = firstname + names[i]+ " ";
+			
+			
+				request.setAttribute("firstname", firstname);
+				request.setAttribute("lastname", names[names.length -1]);
+				System.out.println("firstname:" +firstname + "lastname" +names[names.length - 1 ]);
+			} else {
+				request.setAttribute("isNameInvalid", true);
+				form_success = false;
+			}
+		} else if (name.length() == 0) {
+			request.setAttribute("isNameEmpty", true);
+			form_success = false;
+		}
+
+		
+		if (email != null)
+			email = email.trim();
+			if (email.trim().length() == 0) {
+				request.setAttribute("noEmail", true);
+				form_success = false;
+			} else if (email.length() > 0 && email.matches(email_regex)) {
+				request.setAttribute("email", email);
+			} else {
+				request.setAttribute("emailInvalid", true);
+				form_success = false;
+			}
+					
+		
+		
+		
+
+		
+		if (password1.length() == 0) {
+			request.setAttribute("isPass1Empty", true);
+			form_success = false;
+		} 
+		
+		if(password2.length() == 0) {
+			request.setAttribute("isPass2Empty", true);
+			form_success = false;
+		} 
+		
+		if ((password1 != null && password1.length() > 0  
+				&& password2 != null && password2.length() > 0 
+				&& password1.equals(password2))) {
+			if (password1.matches(pass_regex)) {
+				request.setAttribute("password1", password1);
+				request.setAttribute("password2", password2);
+				System.out.println("pass regex success\n");
+			} else {
+				request.setAttribute("isPassFail", true);
+				form_success = false;
+			}
+		} else if ((password1 != null && password1.length() > 0  
+				&& password2 != null && password2.length() > 0 
+				&& !password1.equals(password2))) {
+			request.setAttribute("isPassMatchError", true);
+			form_success = false;
+		}
+		
+		request.setAttribute("formSuccess", form_success);
+		
+		
+		doGet(request, response);
+	}
+
+}
+
+
+
+
+
+
+
+

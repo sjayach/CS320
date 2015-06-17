@@ -1,0 +1,14 @@
+127.0.0.1 - - [02/May/2015:16:09:57 -0700] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:09:58 -0700] "GET /CS320/Lab2/ImageDownloader HTTP/1.1" 200 790
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:10:04 -0700] "GET /CS320/Lab2/ImageDownloader?image=bean HTTP/1.1" 200 33733
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:10:06 -0700] "GET /CS320/Lab2/ImageDownloader?image=clint HTTP/1.1" 200 24429
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:10:29 -0700] "GET /CS320/Lab2/ImageDownloader?image=sheldon HTTP/1.1" 200 27603
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:10:34 -0700] "GET /CS320/Lab2/ImageDownloader?image=steve HTTP/1.1" 200 34210
+127.0.0.1 - - [02/May/2015:16:20:14 -0700] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:20:15 -0700] "GET /CS320/Lab2/ImageDownloader HTTP/1.1" 200 889
+127.0.0.1 - - [02/May/2015:16:21:23 -0700] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:21:24 -0700] "GET /CS320/Lab2/ImageDownloader HTTP/1.1" 200 908
+127.0.0.1 - - [02/May/2015:16:22:26 -0700] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:22:27 -0700] "GET /CS320/Lab2/ImageDownloader HTTP/1.1" 200 919
+127.0.0.1 - - [02/May/2015:16:28:57 -0700] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [02/May/2015:16:28:58 -0700] "GET /CS320/Lab2/ImageDownloader HTTP/1.1" 200 896

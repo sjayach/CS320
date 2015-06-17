@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ImageDownlader</title>
+</head>
+<body>
+
+<a href="ImageDownloader?image=bean">Bean</a>
+</br>
+<a href="ImageDownloader?image=clint">Clint</a>
+</br>
+<a href="ImageDownloader?image=gaga">Gaga</a>
+</br>
+<a href="ImageDownloader?image=hermoine">Hermoine</a>
+</br>
+</body>
+</html>

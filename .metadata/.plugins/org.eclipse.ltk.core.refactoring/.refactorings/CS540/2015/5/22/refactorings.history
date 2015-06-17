@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;cs540.telnet.copy&apos; to &apos;CS540/src&apos;&#x0D;&#x0A;- Original project: &apos;CS540&apos;&#x0D;&#x0A;- Destination element: &apos;CS540/src&apos;&#x0D;&#x0A;- Original element: &apos;CS540/src/cs540.telnet.copy&apos;" description="Copy package" destination="/src" element1="/src&lt;cs540.telnet.copy" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1432521308041" version="1.0"/>
+</session>

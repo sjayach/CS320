@@ -1,0 +1,44 @@
+package lab2;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class ImageDownloader
+ */
+@WebServlet("/Lab2/ImageDownloader")
+public class ImageDownloader extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		String image_name = null;
+		if (request.getAttribute("image") != null) {
+			name = request.getAttribute("image");
+			out.println("Image name is "+ name);
+		}
+		out.println("<html>");
+		out.println("<head>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>Register Page</title>");
+		out.println("	<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<a href=\"/Lab2/ImageDownloader?image=bean\">Bean</a>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+}

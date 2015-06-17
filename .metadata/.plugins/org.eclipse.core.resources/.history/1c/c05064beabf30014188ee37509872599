@@ -1,0 +1,71 @@
+package examples;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/Addbook")
+public class Addbook extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public void init() throws ServletException {
+		ServletContext form = this.getServletContext();
+		
+		if (form.getAttribute("login") == null) {
+			ArrayList <DataBase> data = new ArrayList <DataBase>();
+
+
+			data.add(new DataBase("a", "b"));
+			data.add(new DataBase("c", "d"));
+			
+			
+			form.setAttribute("login", data);
+		}
+		
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		
+		out.println("<html>");
+		out.println("<head>");
+		out.println("	<meta charset=\"UTF-8\">");
+		out.println("	<title>ImageDonloader</title>");
+		out.println("	<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("	<form class=\"form-horizontal\" action=\"Addbook\" method=\"get\"> ");
+		out.println("<label>Firstname</label>");
+		out.println("<input type=\"textbox\" class=\"form-control\" name=\"Firstname\"placeholder=\"Enter your firstname\">");
+		out.println("<label>Lastname</label>");
+		out.println("<input type=\"textbox\" class=\"form-control\" name=\"Lastname\"placeholder=\"Enter your lastname\">");
+		out.println("<input type=\"submit\" name=\"submit\">");
+		ServletContext context = this.getServletContext();
+		
+		
+		if (context.getAttribute("login")!= null) {
+			ArrayList <DataBase> data = (ArrayList<DataBase>) context.getAttribute("login");
+			for(DataBase datas : data) {
+				out.println("First name :" + datas.getFname() + "Last name :" +datas.getLname() );
+			}
+		}
+		out.println("</form>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+}

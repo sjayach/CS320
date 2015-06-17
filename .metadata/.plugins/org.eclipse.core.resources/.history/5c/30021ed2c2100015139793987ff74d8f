@@ -1,0 +1,42 @@
+package quotation;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class EditQuotationController
+ */
+@WebServlet("/EditQuotationController")
+public class EditQuotationController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletContext context = this.getServletContext();
+		List <QuotationBean> items = (List<QuotationBean>) context.getAttribute("quotationContext");
+		
+		int id = Integer.parseInt(request.getParameter("edit"));
+		
+		for(int i=0;i<items.size();i++) {
+			if (items.get(i).getId() == id) {
+				request.setAttribute("editItem", items.get(i));
+				break;
+			}
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/EditQuotationView.jsp").forward(request, response);
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+}

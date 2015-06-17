@@ -1,0 +1,14 @@
+package mediaStore;
+
+import java.sql.Timestamp;
+
+public class MediaBean {
+	int id;
+	String type;
+	String namemedia;
+	Timestamp addDate;
+	boolean isloan;
+	String lentdate;
+	String borrowed;
+
+}
